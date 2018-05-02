@@ -1,7 +1,7 @@
 # common variables
 variable "alicloud_access_key" {
   description = "The Alicloud Access Key ID to launch resources."
-  default = "***********"
+  default = "*********"
 }
 variable "alicloud_secret_key" {
   description = "The Alicloud Access Secret Key to launch resources."
@@ -15,9 +15,6 @@ variable "region" {
 # VPC variables
 variable "vpc_id" {
   description = "The vpc id used to launch vswitch, security group and instance."
-  // if there isn't default setting, the console will wait for user input
-  // user can set default after creating vpc  such as :
-  // default = "vpc-hp33nt9eo2mmg97azbaul"
 }
 
 # Security Group variables

@@ -1,4 +1,4 @@
-##阿里云demo
+#阿里云demo
 + vpc
 + security group
 + ecs instance
@@ -7,6 +7,27 @@
 * https://github.com/alibaba/terraform-alicloud-ecs-instance
 * https://github.com/alibaba/terraform-alicloud-security-group
 * https://github.com/alibaba/terraform-alicloud-vpc
+
+### 2018-05-02 02
+
+创建阿里云ecs、vpc、security-group 
+
+依次在vpc、security-group、vpc-sg-ecs三个目录执行
+    
+    terrafrom init
+    terraform plan
+    terrafrom apply
+
+即可创建vpc、vswitch、security-group、ecs
+
+```
+  当前目录结构
+  |- aliyun
+      | -- ecs-instance
+      | -- security-group
+      | -- vpc
+      | -- vpc-sg-ecs
+```
 
 
 ### 2018-05-02

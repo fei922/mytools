@@ -1,11 +1,11 @@
 # common variables
 variable "alicloud_access_key" {
   description = "The Alicloud Access Key ID to launch resources."
-  default = "***********"
+  default = "*********"
 }
 variable "alicloud_secret_key" {
   description = "The Alicloud Access Secret Key to launch resources."
-  default = "***********"
+  default = "************"
 }
 variable "region" {
   description = "The region to launch resources."
@@ -14,7 +14,7 @@ variable "region" {
 variable "availability_zones" {
   description = "List available zones to launch several VSwitches."
   type = "list"
-  default = [""]
+  default = ["cn-huhehaote-a"]
 
 }
 variable "number_format" {
@@ -55,7 +55,7 @@ variable "vpc_cidr" {
 variable "vswitch_cidrs" {
   description = "List of cidr blocks used to launch several new vswitches."
   type = "list"
-  default = []
+  default = ["172.16.0.0/24"]
 }
 variable "vswitch_name" {
   description = "The vswitch name prefix used to launch several new vswitch."

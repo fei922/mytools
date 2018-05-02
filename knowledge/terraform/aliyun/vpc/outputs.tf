@@ -7,9 +7,9 @@ output "vswitch_ids" {
   value = "${join(",", alicloud_vswitch.vswitches.*.id)}"
 }
 
-output "availability_zones" {
-  value = "${join(",", alicloud_vswitch.vswitches.*.availablity_zone)}"
-}
+//output "availability_zones" {
+//  value = "${join(",", alicloud_vswitch.vswitches.*.zone_id)}"
+//}
 
 //output "router_id" {
 //  value = "${alicloud_route_entry.route_entry.router_id}"
