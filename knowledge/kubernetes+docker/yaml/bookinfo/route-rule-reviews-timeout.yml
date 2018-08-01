@@ -1,0 +1,41 @@
+# 这个v1和提示错误信息的几乎各一半几率出现，奇怪。。。
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  hosts:
+    - reviews
+  http:
+  - match:
+    - headers:
+        cookie:
+          regex: "^(.*?;)?(user=tmout)(;.*)?$"
+    route:
+    - destination:
+        host: reviews
+        subset: v2
+      timeout: 1s
+      weight: 100
+  # - route:
+  #   - destination:
+  #       host: reviews
+  #       subset: v1
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+  - ratings
+  http:
+  - fault:
+      delay:
+        percent: 100
+        fixedDelay: 3s # Add a 2 second delay to calls to the ratings service
+    route:
+    - destination:
+        host: ratings
+        subset: v1

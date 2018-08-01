@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: msb-virtualservice
+spec:
+  hosts:
+   - "msb"
+#  http:
+#  - match:
+#    - uri:
+#        prefix: /msb
+  http:
+  - route:
+    - destination:
+        host: msb
+        subset:  v1  # 指定destinationrule的subsets的name
+      weight: 20
+    - destination:
+        host: msb
+        subset: v2
+      weight: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: msb-dr
+spec:
+  # host: ratings
+  host: msb   # 这里应该是指定服务名吧
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2

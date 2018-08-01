@@ -1,0 +1,36 @@
+# # 这个v1和提示错误信息的几乎各一半几率出现，奇怪。。。
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: msa-timeout
+# spec:
+#   hosts:
+#     - msa
+#   http:
+#   - route:
+#     - destination:
+#         host: msa
+#       timeout: 1s
+#       weight: 100
+#   # - route:
+#   #   - destination:
+#   #       host: reviews
+#   #       subset: v1
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: msb-virtualservice
+spec:
+  hosts:
+  - msb
+  http:
+  - fault:
+      delay:
+        percent: 100
+        fixedDelay: 3s # 可以发现延时3秒响应
+    route:
+    - destination:
+        host: msb
+        subset: v1

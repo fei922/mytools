@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<!--<html dir="rtl">--><!-- Path to Framework7 RTL stylesheet -->
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>My App</title>
+    <title>第一个framework7 例子</title>
+    <!-- http://framework7.cn/docs/app-layout.html -->
+
+    <!-- Path to Framework7 Library CSS, Material Theme -->
+    <link rel="stylesheet" href="./dist/css/framework7.css">
+
+    <!-- Path to Framework7 RTL stylesheet -->
+   <!-- <link rel="stylesheet" href="./dist/css/framework7.rtl.css">-->
+
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="./dist/css/first-demo.css">
+</head>
+<body>
+<!-- App root element -->
+<div id="app">
+    <!-- Statusbar overlay -->
+    <div class="statusbar"></div>
+
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+        <!-- Initial Page, "data-name" contains page name -->
+        <div data-name="home" class="page">
+
+            <!-- Top Navbar -->
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="title">Awesome App</div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-inner">
+                    <!-- Toolbar links -->
+                    <a href="#" class="link">Link 1</a>
+                    <a href="#" class="link">Link 2</a>
+                </div>
+            </div>
+
+            <!-- Scrollable page content -->
+            <div class="page-content">
+                <p>Page content goes here</p>
+                <!-- Link to another page -->
+                <a href="/about/">About app</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="./dist/js/framework7.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="./dist/js/first-demo.js"></script>
+</body>
+</html>

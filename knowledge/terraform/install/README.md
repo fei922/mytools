@@ -15,6 +15,7 @@
 
 访问[download page](https://www.terraform.io/downloads.html),下载对应操作系统Terraform可执行文件
 
+### 安装
 
 1. Linux (以centos为例)
   

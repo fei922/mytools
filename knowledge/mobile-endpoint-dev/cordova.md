@@ -3,6 +3,7 @@
 ### 参考资料
 
 * [Cordova中文网](http://cordova.axuer.com/docs/zh-cn/latest/guide/overview/index.html)
+* [Adnroid平台开发要求](http://cordova.axuer.com/docs/zh-cn/latest/guide/platforms/android/index.html)
 
 ### 说明
 
@@ -185,3 +186,10 @@ error: device still connecting
 活动的生命周期通过文档事件触发暴漏给你的应用程序，
 事件不保证与Android的生命周期对齐，
 但可以提供保存和恢复状态的指导方针。
+
+
+|    Cordova事件    | 粗略的Android等效 |  含义 |
+| :---------- :| :---: | :---: |
+| deviceready |  onCreate() | 应用程序开始(不是从背景) |
+| pause       |  onPause() | 应用程序移动到背景 |
+| resume       |  onResume() | 应用程序移动到前景 |
