@@ -177,11 +177,47 @@
     echo 1 > /sys/devices/virtual/net/cni0/bridge/nf_call_iptables
     # 然后重试，看是dns是否正常
     # [注意] 如果node节点重新启动，配置会重置。需要重新执行上面这条命令
+    
+    # 发现有时候busybox容器，
+    # nslookup会提示类似dns问题[dns can't resolve kubernetes.default and/or cluster.local](https://github.com/kubernetes/kubernetes/issues/66924#issuecomment-411806846)，
+    # 可以换成其他容器测试dns，比如alpine
+    [root@localhost test]# cat alpine-pod.yaml 
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: alpine
+    spec:
+      containers:
+      - name: alpine 
+        image: alpine:latest
+        imagePullPolicy: IfNotPresent
+        command: [ "sleep", "3600" ]
+    
+    [root@localhost test]# kubectl create -f alpine-pod.yaml 
+    pod "alpine" created
+    
+    [root@localhost test]# kubectl exec -it alpine sh
+    / # nslookup kubernetes
+    nslookup: can't resolve '(null)': Name does not resolve
+    
+    Name:      kubernetes
+    Address 1: 10.254.0.1 kubernetes.default.svc.cluster.local 
 ```
 
 4. 通过helm安装
 
-把istio所需的镜像都分发到节点。
+[root@localhost ~]# cd istio-0.8.0/
+
+
+把istio所需的镜像(位于istio-0.8.0/istio-images目录下)都分发到节点，例如其中一台k8s-node上操作，
+
+[root@localhost istio-images]# scp -r 10.111.66.66:/root/istio-images/* ./
+
+[root@localhost istio-images]# images=$(ls .); for imageName in ${images[@]}; do docker load -i $imageName; done
+
+加载所有镜像即可。
+
+在k8s-master节点执行以下命令。
 
 使用option 1进行部署，使用option2部署的时候出问题了。
 
