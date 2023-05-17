@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox1
+  labels:
+    app: busybox1
+    status: replaced
+spec:
+  containers:
+  - image: busybox
+    command:
+      # - /bin/sh
+      # - -c
+      # - env
+      - sleep
+      - 600s
+    imagePullPolicy: IfNotPresent
+    name: busybox
+    env:
+    - name: MY_POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+    - name: test.env
+      value: test.value
+  restartPolicy: Always

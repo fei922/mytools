@@ -1,0 +1,68 @@
+10.25.27.2
+10.25.27.3
+10.25.27.4
+10.25.27.5
+10.25.27.6
+10.25.27.7
+10.25.27.8
+10.25.27.9
+10.25.27.10
+10.25.27.12
+10.25.27.13
+10.25.27.15
+10.25.27.16
+10.25.27.17
+10.25.27.20
+10.25.27.22
+10.25.27.24
+10.25.27.27
+10.25.27.31
+10.25.27.43
+10.42.0.0
+
+
+iptables -A INPUT -s 10.25.27.43 -p tcp  --dport 443 -j ACCEPT
+iptables -A INPUT -s 10.42.0.0/16 -p tcp  --dport 443 -j ACCEPT
+
+
+iptables -A INPUT  -p tcp  --dport 22 -j ACCEPT
+
+
+iptables -A INPUT  -p tcp  --dport 22 -j ACCEPT
+iptables -P INPUT  DROP
+
+iptables -A INPUT -s 127.0.0.1  -j ACCEPT
+iptables -A INPUT -s 192.168.66.116  -j ACCEPT
+iptables -A INPUT -s 192.168.66.117  -j ACCEPT
+iptables -A INPUT -s 192.168.66.118  -j ACCEPT
+iptables -A INPUT -s 10.42.0.0/16  -j ACCEPT
+
+
+iptables -I DOCKER ! -s 127.0.0.1 -j DROP
+iptables -I DOCKER ! -s 10.42.0.0/16 -j DROP
+iptables -I DOCKER ! -s 10.25.27.0/24 -j DROP
+iptables -I DOCKER ! -s 222.173.11.26/32 -j DROP
+
+
+iptables   -t nat -I DOCKER  -s 192.168.66.0/24   -p tcp  --dport 8443  -j DNAT --to-destination 172.17.0.2:443
+
+
+
+
+# 自定义一个链，然后把它加到INPUT链里
+# https://www.codenong.com/cs106243972/
+
+
+iptables -t filter -N gpaas-container-security
+
+iptables -L gpaas-container-security -n
+
+iptables -A gpaas-container-security -s 192.168.66.0/24 -d 172.17.0.2 -p tcp --dport 443 -j ACCEPT
+iptables -A gpaas-container-security -s 20.5.1.0/24 -d 172.17.0.2 -p tcp --dport 443 -j ACCEPT
+iptables -A gpaas-container-security -s 127.0.0.1 -d 172.17.0.2 -p tcp --dport 443 -j ACCEPT
+iptables -A gpaas-container-security  -d 172.17.0.2 -p tcp --dport 443 -j DROP
+
+iptalbes -I INPUT -j gpaas-container-security
+
+
+docker inspect --format '{''{ .NetworkSettings.Networks.harbor_harbor.IPAddress }''}' nginx

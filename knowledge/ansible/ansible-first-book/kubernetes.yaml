@@ -1,0 +1,25 @@
+- include_tasks: taint-node-1.yaml
+  vars:
+    group_name: "public"
+    public_label_key: "node"
+    # 没有值的话就是删标签
+    public_label_value: "test"
+  when: '"public" in groups'
+
+# taint-node-1.yaml
+# 参考 https://github.com/ansible-collections/community.kubernetes/blob/main/molecule/default/tasks/full.yml#L203
+# 由于k8s模块对于spec.taints 是完全替换，不像 metadata.labels 似的会智能合并，
+# 不够智能，还是采用"kubectl taint node nodename gpaas.io=1:NoSchedule"的方式比较可控
+- name: taint k8s  node
+  k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Node
+      metadata:
+        name: "{{hostvars[item].hostname}}"
+      spec:
+        taints:
+          - effect: NoSchedule
+            key: gpaas.io
+  with_items: "{{groups[group_name]}}"
